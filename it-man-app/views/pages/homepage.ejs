@@ -2,78 +2,8 @@
 
 <h1>Bem-vindo(a) loja do it-man!</h1>
 
-<script>
-  console.log(
-`      (\`-.                                                                  .-') _           _   .-')      ('-.         .-') _  
-    _(OO  )_                                                               (  OO) )         ( '.( OO )_   ( OO ).-.    ( OO ) ) 
-,--(_/   ,. \\,--. ,--.    ,--.       ,----.     .-'),-----.         ,-.-') /     '._         ,--.   ,--.) / . --. /,--./ ,--,'  
-\\   \\   /(__/|  | |  |    |  |.-')  '  .-./-') ( OO'  .-.  ')        |  |OO)|'--...__)  .-')  |   \`.   |  | \\-.  \\ |   \\ |  |\\  
- \\   \\ /   / |  | | .-')  |  | OO ) |  |_( O- )/   |  | |  |        |  |  \\'--.  .--'_(  OO) |         |.-'-'  |  ||    \\|  | ) 
-  \\   '   /, |  |_|( OO ) |  |\`-' | |  | .--, \\\\_) |  |\\|  |        |  |(_/   |  |  (,------.|  |'.'|  | \\| |_.'  ||  .     |/  
-   \\     /__)|  | | \`-' /(|  '---.'(|  | '. (_/  \\ |  | |  |       ,|  |_.'   |  |   '------'|  |   |  |  |  .-.  ||  |\\    |   
-    \\   /   ('  '-'(_.-'  |      |  |  '--'  |    \`'  '-'  ')      (_|  |      |  |           |  |   |  |  |  | |  ||  | \\   |   
-     \`-'      \`-----'     \`------'   \`------'       \`-----'         \`--'      \`--'           \`--'   \`--'  \`--' \`--' \`--'  \`--'   
-`
-);
-</script>
-
-<!-- Script para fazer a requisição para o backend retornar todos os produtos -->
-<script>
-  // Script para rodar o processamento dos dados do backend e exibir as informações no front
-  document.addEventListener('DOMContentLoaded', async function () {
-    try {
-      const response = await fetch('/product'); // repare no fetch direto da rota que lista todos os produtos
-      const products = await response.json();
-
-      const productList = document.getElementById('product-list');
-
-      products.forEach(product => {
-        const li = document.createElement('li');
-        li.textContent = `${product.name} - ${product.price}`;
-        productList.appendChild(li);
-      });
-    } catch (error) {
-      console.error('Erro ao obter os produtos:', error);
-    }
-  });
-</script>
-
-<!-- As informações carregadas pelo script são exibidas aqui! -->
-<!-- O DOM está sendo manipulado! -->
 <h2>Produtos na loja do it-man:</h2>
-<ul id="product-list">
-</ul>
-
-<!-- Script para fazer a requisição para o backend cadastrar novos produtos -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('add-product-form');
-
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch('/product/create', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao adicionar produto');
-        }
-
-        const newProduct = await response.json();
-        alert('Produto adicionado com sucesso! Recarregue a página para ver o resultado!');
-        form.reset();
-      } catch (error) {
-        console.error('Erro ao adicionar produto:', error);
-        alert('Ocorreu um erro ao adicionar o produto. Por favor, tente novamente.');
-      }
-    });
-  });
-</script>
+<ul id="product-list"></ul>
 
 <h2>Adicione seu produto à loja do itman:</h2>
 <form id="add-product-form">
@@ -86,90 +16,13 @@
   <button type="submit">Adicionar Produto</button>
 </form>
 
-<!-- Script para fazer a requisição para o backend pesquisar produtos pelo id -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('search-product-form');
-    const productDetailsDiv = document.getElementById('product-details');
-
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const productId = form.productId.value.trim();
-
-      try {
-        const response = await fetch(`/product/${productId}`);
-
-        if (!response.ok) {
-          throw new Error('Produto não encontrado');
-        }
-
-        const product = await response.json();
-
-        // exibição das informações!
-        productDetailsDiv.innerHTML = `
-          <h3>Detalhes do Produto:</h3>
-          <p><strong>Nome:</strong> ${product.name}</p>
-          <p><strong>Descrição:</strong> ${product.description}</p>
-          <p><strong>Preço:</strong> ${product.price}</p>
-        `;
-      } catch (error) {
-        console.error('Erro ao pesquisar produto:', error);
-        alert('Produto não encontrado. Certifique-se de que o ID do produto está correto.');
-        productDetailsDiv.innerHTML = '';
-      }
-    });
-  });
-</script>
-
 <h2>Pesquisar os produtos do it-man pelo seu id:</h2>
 <form id="search-product-form">
   <label for="productId">ID do Produto:</label>
   <input type="text" id="productId" name="productId" required><br>
   <button type="submit">Pesquisar Produto</button>
 </form>
-
-<!-- O DOM está sendo manipulado! -->
-<div id="product-details">
-</div>
-
-<!-- Script para fazer a requisição para atualizar produtos já existentes! -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('update-product-form');
-
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const productId = form.productIdToUpdate.value.trim();
-      const name = form.nameToUpdate.value.trim();
-      const description = form.descriptionToUpdate.value.trim();
-      const price = form.priceToUpdate.value.trim();
-
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('description', description);
-      formData.append('price', price);
-
-      try {
-        const response = await fetch(`/product/${productId}`, {
-          method: 'PUT',
-          body: formData
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao atualizar produto');
-        }
-
-        alert('Produto atualizado com sucesso!');
-        form.reset();
-      } catch (error) {
-        console.error('Erro ao atualizar produto:', error);
-        alert('Ocorreu um erro ao atualizar o produto. Certifique-se de que o ID do produto está correto.');
-      }
-    });
-  });
-</script>
+<div id="product-details"></div>
 
 <h2>Quer atualizar algo?:</h2>
 <form id="update-product-form">
@@ -184,38 +37,12 @@
   <button type="submit">Atualizar Produto</button>
 </form>
 
-<!-- Script para fazer a requisição para excluir um produto existente! -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('delete-product-form');
-
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const productId = form.productIdToDelete.value.trim();
-
-      try {
-        const response = await fetch(`/product/${productId}`, {
-          method: 'DELETE'
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao excluir produto');
-        }
-
-        alert('Produto excluído com sucesso!');
-        form.reset();
-      } catch (error) {
-        console.error('Erro ao excluir produto:', error);
-        alert('Ocorreu um erro ao excluir o produto. Certifique-se de que o ID do produto está correto.');
-      }
-    });
-  });
-</script>
-
 <h2>delete o itman... digo um produto:</h2>
 <form id="delete-product-form">
   <label for="productIdToDelete">ID do Produto:</label>
   <input type="text" id="productIdToDelete" name="productIdToDelete" required><br>
   <button type="submit">Excluir Produto</button>
 </form>
+
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/main.js"></script>
