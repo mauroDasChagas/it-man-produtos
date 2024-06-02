@@ -13,11 +13,12 @@ module.exports = {
       required: true
     },
     description: {
-      type: 'string'
+      type: string
     },
     price: {
-      type: 'number',
+      type: 'string',
       required: true
+      min: 'zero'
     },
   },
 

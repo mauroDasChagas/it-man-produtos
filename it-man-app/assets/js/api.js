@@ -5,8 +5,8 @@ async function fetchProducts() {
   }
   
   async function addProduct(formData) {
-    const response = await fetch('/product/create', {
-      method: 'POST',
+    const response = await fetch('/product/new', {
+      method: 'PUT',
       body: formData,
     });
   
@@ -29,7 +29,7 @@ async function fetchProducts() {
   
   async function updateProduct(productId, formData) {
     const response = await fetch(`/product/${productId}`, {
-      method: 'PUT',
+      method: 'POST',
       body: formData,
     });
   

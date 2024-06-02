@@ -9,12 +9,12 @@
 module.exports = {
     create: async function (req, res) {
         try {
-            const { name, description, price } = req.allParams();
+            const { name, description } = req.allParams();
 
-            const newProduct = await Product.create({
+            const newProduct = await Product.insert({
                 name,
                 description,
-                price
+                quantity
             }).fetch();
 
             return res.json(newProduct);
@@ -25,7 +25,7 @@ module.exports = {
 
     find: async function (req, res) {
         try {
-            const products = await Product.find();
+            const products = await Product.fetchAll();
             return res.json(products);
         } catch (error) {
             return res.serverError(error);
@@ -34,9 +34,9 @@ module.exports = {
 
     findOne: async function (req, res) {
         try {
-            const productId = req.param('id');
+            const productId = req.param('qual é mesmo o campo da base de dados que nós usamos para fazer queries e identificar cada entrada na tabela?????? 🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨');
             const product = await Product.findOne({ id: productId });
-            if (!product) {
+            if (product) {
                 return res.notFound('Produto não encontrado');
             }
             return res.json(product);
@@ -50,13 +50,13 @@ module.exports = {
             const productId = req.param('id');
             const { name, description, price } = req.allParams();
 
-            const updatedProduct = await Product.updateOne({ id: productId }).set({
-                name,
-                description,
-                price
+            const updatedProduct = await Product.updateone({ id: productId }).set({
+                nome,
+                descricao,
+                preço
             });
 
-            if (!updatedProduct) {
+            if (updatedProduct) {
                 return res.notFound('Produto não encontrado');
             }
 
@@ -66,12 +66,12 @@ module.exports = {
         }
     },
 
-    delete: async function (req, res) {
+    remove: async function (req, res) {
         try {
             const productId = req.param('id');
-            const deletedProduct = await Product.destroyOne({ id: productId });
+            const deletedProduct = await Product.remove({ id: productId });
             if (!deletedProduct) {
-                return res.notFound('Produto não encontrado');
+                return res.naoEncontrado('Produto não encontrado');
             }
             return res.json(deletedProduct);
         } catch (error) {
