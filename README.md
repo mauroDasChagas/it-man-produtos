@@ -23,36 +23,17 @@ sails lift
 - **Hostname:** dpg-cp14isfsc6pc7385iv0g-a
 - **Porta:** 5432
 - **Usuário:** itman
-- **Senha:** 4RKbp8foBDBNIOaSgZMNF779VkJl4lcQ
-- **URL do banco de dados externo:** `postgres://itman:4RKbp8foBDBNIOaSgZMNF779VkJl4lcQ@dpg-cp14isfsc6pc7385iv0g-a.oregon-postgres.render.com/dbitman`
+- **Senha:** X3DIZhYNKJYq2gczIJ1qi8uCzQqFGm2V
+- **URL do banco de dados externo:** `postgres://itman:X3DIZhYNKJYq2gczIJ1qi8uCzQqFGm2V@dpg-cpdq0tfsc6pc7395nrv0-a.oregon-postgres.render.com/dbitman_6mxv`
 
-## Explicação do que foi desenvolvido até então:
+## Explicação do exercício de correção:
 
-A aplicação é simples e tem como principal objetivo servir de suporte para facilitar a compreensão da integração entre as partes de uma aplicação. Alguns pontos importantes incluem:
+Ooopa! Falae pessoal! Tudo bem? Espero que sim!!
 
-- O arquivo `./config/datastore.js` está conectado ao banco de dados fornecido. Para conectar-se ao seu próprio banco de dados ou projeto, basta modificar esta linha com os dados correspondentes:
+Seguinte, aproveitando o projeto que já existia, bolei um exercício para vocês fazerem algumas correções nessa aplicação! Ela deu uma mudada em relação à branch principal, mas a essência é a mesma, é uma aplicação simples com um CRUD básico implementado e agora com uns erros bem chatinhos para serem resolvidos! Eu foquei mais nos detalhes que vocês precisam prestar atenção enquanto estão fazendo uma aplicação, principalmente quando estamos falando de integração entre frontend e backend! Espero que sirva de um aprendizado bacana para vocês! 
 
- ```javascript
- adapter: 'sails-postgresql',
- url: mude aqui,
- ssl: true,
- ```
+Existem cerca de 30 errinhos para serem resolvidos, muitos deles são bem básicos e triviais, mas é necessário atenção e entendimento do que está acontecendo na aplicação para resolvê-los! Espero que seja interessante para vocês! E qualquer dúvida não deixem de me chamar, ok?
 
-- O arquivo `./config/routes.js` contém todas as rotas da aplicação, responsáveis pelas operações CRUD (Create, Read, Update, Delete) de produtos.
+Boa sorteeee!!!
 
- ```javascript
- // CRUD - produtos
- 'POST /product/create': 'ProductController.create',
- 'GET /product/:id': 'ProductController.findOne',
- 'GET /product': 'ProductController.find',
- 'PUT /product/:id': 'ProductController.update',
- 'DELETE /product/:id': 'ProductController.delete',
- ```
-
-- No diretório `./api/models`, há um modelo simples chamado `Product.js`, enquanto no diretório `./api/controllers` encontra-se o `ProductController`, responsável por executar as operações definidas nas rotas.
-
-- Por fim, temos uma única visualização localizada em `./views/pages/homepage.ejs`, onde a integração ocorre. Embora todo o conteúdo esteja em um único arquivo por questões de simplicidade, não foi utilizado o EJS diretamente. Em vez disso, foram utilizadas tags `<script></script>` correspondentes para cada parte do HTML, onde o `fetch` é usado para obter dados das rotas do backend, os quais são convertidos em JSON e retornados ao frontend. O frontend então manipula o DOM para atualizar com os dados do servidor.
-
-Para qualquer dúvida, não hesite em entrar em contato. Estou aqui para ajudar! 🤙
-
-![Imagem](https://pbs.twimg.com/media/Fi6hVIsXgAYu-a6.png)
+![Imagem](https://i.redd.it/ex4tvlsr5zv11.jpg)
