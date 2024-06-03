@@ -1,58 +1,133 @@
-# it-man-produtos
+# 📕 Orientações para projeto web solo
 
-Repositório contendo um projeto básico utilizando Sails conectado a um banco de dados PostgreSQL no Render. O objetivo é auxiliar os alunos a compreender como realizar a integração entre frontend, backend e banco de dados.
+Oopa! Falae pessoal! Tudo certo? A prova está chegando e uma das melhores formas de estudar é praticando! Sendo assim, além de vocês concertarem aplicações web como uma forma de estudo para a parte prática, acho que seria super bacana tentarem desenvolver uma aplicação do zero! É algo que vai ajudá-los a ter uma noção mais ampla de como é todo o processo de desenvolvimento de uma aplicação e, por consequência, vai facilitar o processo de correção de outra aplicação!
 
-## Como rodar a aplicação?
+Aqui eu vou deixar só uma proposta de exercício e algumas orientações de como vocês podem fazer! A ideia é que vocês tentem desenvolver usando os aprendizados que tiveram ao longo do módulo! Vou passar um direcionamento, mas os modos como podem fazer isso são ilimitados! Usem como uma forma de estudo e desenvolvimento!
 
-1. Navegue até o diretório da aplicação usando o comando:
+## ✅ Sistema de gestão de tarefas
 
+Desenvolva um projeto web que servirá como um sistema de gestão de tarefas, desenvolvido para auxiliar no gerenciamento de tarefas diárias. A aplicação permitirá aos usuários criar, editar, excluir e visualizar tarefas. O projeto deverá ser desenvolvido usando Sails.js, um framework MVC para Node.js.
+
+### 🎯 Objetivo
+
+Desenvolver uma aplicação web completa utilizando Sails.js, aplicando conceitos de MVC (Model-View-Controller) e helpers para controllers, além de estruturar o frontend de maneira organizada.
+
+### 🛠️ Sugestões de funcionalidades:
+
+- Registro e login de usuários
+- CRUD de tarefas (Criar, Ler, Atualizar, Excluir)
+- Marcar tarefas como concluídas
+- Filtragem de tarefas por categoria, data e status
+
+### 💭 Alguns direcionamentos iniciais
+
+1. Lembre-se de ter o sails instalado na sua máquina:
+
+```bash
+npm install -g sails
 ```
-cd it-man-app
+
+2. Lembre-se do comando para criar um novo projeto
+
+```bash
+sails new nome-do-seu-projeto
 ```
 
-2. Em seguida, execute o comando: (talvez precise de um `npm i` antes)
+3. Lembre-se do comando de como entrar na pasta do seu projeto após criá-lo
 
+```bash
+cd nome-do-seu-projeto
 ```
-sails lift
+
+4. Lembre-se que para usar um banco de dados _PostgreSQL_ é necessário ter o adaptador do _Sails_
+
+```bash
+npm install sails-postgresql --save
 ```
 
-3. Acesse a aplicação em [http://localhost:1337](http://localhost:1337)
+5. Lembre-se de configurar seu arquivo `config/datastore.js` com as credenciais do seu banco de dados (se quiser usar as credenciais do banco de dados que eu disponibilizei para vocês na branch main desse repositório, fique à vontade)
 
-## Dados para conectar com o DBeaver:
+```javascript
+module.exports.datastores = {
+  default: {
+    adapter: 'sails-postgresql',
+    url: 'postgres://username:password@host:port/database',
+    ssl: true, // não se esqueça de definir o ssl como true
+  },
+};
+```
 
-- **Hostname:** dpg-cp14isfsc6pc7385iv0g-a
-- **Porta:** 5432
-- **Usuário:** itman
-- **Senha:** 4RKbp8foBDBNIOaSgZMNF779VkJl4lcQ
-- **URL do banco de dados externo:** `postgres://itman:4RKbp8foBDBNIOaSgZMNF779VkJl4lcQ@dpg-cp14isfsc6pc7385iv0g-a.oregon-postgres.render.com/dbitman`
+6. Lembre-se que toda a estrutura dos seus Models, Controllers e Helpers fica na pasta `api` do projeto Sails, enquanto que a visualização do seu frontend fica em `views`.
 
-## Explicação do que foi desenvolvido até então:
+7. Lembre-se que os nomes das suas rotas são criados em `config/routes.js`
 
-A aplicação é simples e tem como principal objetivo servir de suporte para facilitar a compreensão da integração entre as partes de uma aplicação. Alguns pontos importantes incluem:
+### 💡 Algumas ideias 
 
-- O arquivo `./config/datastore.js` está conectado ao banco de dados fornecido. Para conectar-se ao seu próprio banco de dados ou projeto, basta modificar esta linha com os dados correspondentes:
+Bem, minha principal recomendação com esse projeto é que você tente implementar os conhecimentos que tem do 0, visando realmente revisar e colocar em prática o que aprendeu sobre desenvolvimento web durante esse módulo! Precisamente por isso, incentivo que invente moda e faça com que seja divertido todo esse processo!
 
- ```javascript
- adapter: 'sails-postgresql',
- url: mude aqui,
- ssl: true,
- ```
+Mas caso precise de um direcionamento, deixo aqui algumas sugestões em alto nível do que pode ser feito!
 
-- O arquivo `./config/routes.js` contém todas as rotas da aplicação, responsáveis pelas operações CRUD (Create, Read, Update, Delete) de produtos.
+#### Models que podem ser criados
+- Tarefa (bem, um sistema de gerenciamento de tarefas precisa de tarefas, né?)
+    - Nome da tarefa
+    - Descrição
+    - Data de início
+    - Data de vencimento
+    - Prioridade (Alta/Média/Baixa)
+    - Etiquetas ("Trabalho", "Estudo", "Casa", ou mesmo o usuário pode criar suas próprias)
+    - Local
+    - Subtarefas (Como modelar isso no PostgreSQL??? Uma tarefa pode ter várias subtarefas? 🤔 E as subtarefas? 🤔Pode ter subsubtarefas? 🤔 E as subsubsubtarefas? 🤔 Tem subsubsubsub aaaaaaa 😭)
+    - Status (Pendente/Concluída)
 
- ```javascript
- // CRUD - produtos
- 'POST /product/create': 'ProductController.create',
- 'GET /product/:id': 'ProductController.findOne',
- 'GET /product': 'ProductController.find',
- 'PUT /product/:id': 'ProductController.update',
- 'DELETE /product/:id': 'ProductController.delete',
- ```
+- Usuário (relaxem quanto a questão de criptografia e autenticação, não é o foco aqui)
+    - Nome
+    - Email
+    - Idade
+    - Profissão
 
-- No diretório `./api/models`, há um modelo simples chamado `Product.js`, enquanto no diretório `./api/controllers` encontra-se o `ProductController`, responsável por executar as operações definidas nas rotas.
+- Etiquetas (Se for seguir a ideia dos usuários poderem criar as suas próprias, então você vai ter que armazenar essa informação)
+    - Nome da etiqueta
+    - Descrição
+    - Cor da etiqueta (talvez para mudar a visualização no frontend)
 
-- Por fim, temos uma única visualização localizada em `./views/pages/homepage.ejs`, onde a integração ocorre. Embora todo o conteúdo esteja em um único arquivo por questões de simplicidade, não foi utilizado o EJS diretamente. Em vez disso, foram utilizadas tags `<script></script>` correspondentes para cada parte do HTML, onde o `fetch` é usado para obter dados das rotas do backend, os quais são convertidos em JSON e retornados ao frontend. O frontend então manipula o DOM para atualizar com os dados do servidor.
+#### Controllers
+- Na verdade aqui não tem muito segredo, apenas pense sobre quais ações seriam interessantes para cada uma das suas entidades, faz sentido criar um usuário? (provavelmente sim), faz sentido um usuário poder deletar sua própria conta? (bem, acho que sim) faz sentido um usuário poder deletar a conta de outro usuário? (calma lá, patrão). Pense principalmente no que faz e não faz sentido e aplique da forma que melhor atender às necessidades da sua aplicação!
 
-Para qualquer dúvida, não hesite em entrar em contato. Estou aqui para ajudar! 🤙
+#### Helpers
+- **Formatador de Data:** Um helper para formatar datas de acordo com o formato desejado, facilitando a exibição da data de vencimento das tarefas.
+- **Validador de Campos:** Um helper para validar os campos de entrada antes de criar ou atualizar as tarefas, garantindo que os campos obrigatórios sejam preenchidos.
+- **Gerador de ID Único:** Um helper para gerar IDs únicos para as tarefas, garantindo que não haja conflitos de identificação.
+- **Verificador de Tarefas Concluídas:** Um helper para verificar se todas as tarefas foram concluídas, útil para exibir uma mensagem ou tomar alguma ação quando todas as tarefas estiverem concluídas.
+- **Calculadora de Tempo Restante:** Um helper para calcular o tempo restante até a data de vencimento das tarefas, ajudando os usuários a priorizarem suas atividades.
+- **Gerador de Relatório:** Um helper para gerar relatórios de tarefas
 
-![Imagem](https://pbs.twimg.com/media/Fi6hVIsXgAYu-a6.png)
+#### Views
+- **Tela de Login:** Uma tela para que os usuários façam login na aplicação
+- **Tela de Cadastro de Tarefas:** Uma tela para que os usuários possam criar novas tarefas, com campos para preencher as informações necessárias, como nome da tarefa, descrição, data de início, data de vencimento, prioridade, etiquetas, local e status.
+- **Tela de Listagem de Tarefas:** Uma tela para que os usuários possam visualizar todas as tarefas criadas, com opções para filtrar e ordenar as tarefas por categoria, data e status. Além disso, você pode adicionar opções para editar ou excluir as tarefas.
+- **Tela de Edição de Tarefas:** Uma tela para que os usuários possam editar as tarefas existentes, com campos para atualizar as informações necessárias
+- **Tela de Detalhes de Tarefas:** Uma tela para que os usuários possam visualizar as informações detalhadas de uma tarefa específica, incluindo o nome, descrição, data de início, data de vencimento, prioridade, etiquetas, local e status.
+- **Tela de Perfil de Usuário:** Uma tela para que os usuários possam visualizar e editar as informações do seu perfil, como nome, email, idade e profissão.
+- **Tela de Listagem de Etiquetas:** Uma tela para que os usuários possam visualizar todas as etiquetas criadas, com opções para filtrar e ordenar as etiquetas.
+- **Tela de Cadastro de Etiquetas:** Uma tela para que os usuários possam criar novas etiquetas, com campos para preencher as informações necessárias, como nome da etiqueta, descrição e cor da etiqueta.
+- **Tela de Relatório de Tarefas:** Uma tela para que os usuários possam visualizar relatórios de tarefas, como o número de tarefas concluídas, o número de tarefas em andamento e o tempo restante até a data de vencimento das tarefas.
+- **Tela de Configurações:** Uma tela para que os usuários possam configurar as configurações do sistema, como a cor do tema, a linguagem e as notificações.
+- **Tela de Ajuda:** Uma tela para que os usuários possam acessar a documentação e os tutoriais do sistema, bem como entrar em contato com o suporte.
+
+### 🤓 Considerações finais
+
+Lembre-se que a ideia disso é ser mais como uma forma de estudo, de forma alguma levem isso como mais uma ponderada ou coisa assim, implmentem o que der na telha, façam o melhor que puderem, estudem como acharem melhor! Estou apenas compartilhando algumas formas de fazer isso caso estejam precisando! E lembrem-se, qualquer dúvida, me chamem!
+
+
+### 📚 Uff referências
+
+- [Sails.js Docs reference](https://sailsjs.com/documentation/reference)
+- [Sails.js docs concepts](https://sailsjs.com/documentation/concepts)
+- [Sails.js docs tutorials](https://sailsjs.com/documentation/tutorials)
+- [Node.js docs](https://nodejs.org/docs/latest/api/synopsis.html)
+- [Node.js tutorial - w3schools](https://www.w3schools.com/nodejs/)
+- [MVC Design Pattern - GeeksForGeeks](https://www.geeksforgeeks.org/mvc-design-pattern/)
+- [JavaScript tutorial - w3schools](https://www.w3schools.com/Js/)
+
+
+![Imagem](https://pbs.twimg.com/media/FN4c9bragAASHBX.jpg)
