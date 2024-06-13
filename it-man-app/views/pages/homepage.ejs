@@ -1,19 +1,48 @@
-<h1>Student Management</h1>
+<!-- views/pages/index.ejs -->
 
-  <div id="students">
-    <!-- Lista de estudantes será inserida aqui -->
-  </div>
-  <button id="load-students">Load Students</button>
+<h1>Bem-vindo(a) loja do it-man!</h1>
 
-  <script>
-    $(document).ready(function () {
-      $('#load-students').click(function () {
-        $.get('/student/read', function (data) {
-          $('#students').empty();
-          data.forEach(function (student) {
-            $('#students').append(`<p>${student.name} - ${student.email}</p>`);
-          });
-        });
-      });
-    });
-  </script>
+<h2>Produtos na loja do it-man:</h2>
+<ul id="product-list"></ul>
+
+<h2>Adicione seu produto à loja do itman:</h2>
+<form id="add-product-form">
+  <label for="name">Nome:</label>
+  <input type="text" id="name" name="name" required><br>
+  <label for="description">Descrição:</label>
+  <input type="text" id="description" name="description"><br>
+  <label for="price">Preço:</label>
+  <input type="number" id="price" name="price" required><br>
+  <button type="submit">Adicionar Produto</button>
+</form>
+
+<h2>Pesquisar os produtos do it-man pelo seu id:</h2>
+<form id="search-product-form">
+  <label for="productId">ID do Produto:</label>
+  <input type="text" id="productId" name="productId" required><br>
+  <button type="submit">Pesquisar Produto</button>
+</form>
+<div id="product-details"></div>
+
+<h2>Quer atualizar algo?:</h2>
+<form id="update-product-form">
+  <label for="productIdToUpdate">ID do Produto:</label>
+  <input type="text" id="productIdToUpdate" name="productIdToUpdate" required><br>
+  <label for="nameToUpdate">Novo Nome:</label>
+  <input type="text" id="nameToUpdate" name="nameToUpdate"><br>
+  <label for="descriptionToUpdate">Nova Descrição:</label>
+  <input type="text" id="descriptionToUpdate" name="descriptionToUpdate"><br>
+  <label for="priceToUpdate">Novo Preço:</label>
+  <input type="number" id="priceToUpdate" name="priceToUpdate"><br>
+  <button type="submit">Atualizar Produto</button>
+</form>
+
+<h2>delete o itman... digo um produto:</h2>
+<form id="delete-product-form">
+  <label for="productIdToDelete">ID do Produto:</label>
+  <input type="text" id="productIdToDelete" name="productIdToDelete" required><br>
+  <button type="submit">Excluir Produto</button>
+</form>
+
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/main.js"></script>
