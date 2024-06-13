@@ -1,0 +1,70 @@
+<!-- views/pages/dom-manipulation-demo.ejs -->
+
+<h1>Exemplos de Manipulação de DOM com jQuery</h1>
+
+<div id="example1">
+    <h2>1. Adicionar Elementos</h2>
+    <button id="btnAddElement">Adicionar Novo Elemento</button>
+    <ul id="elementList">
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+    </ul>
+</div>
+
+<hr>
+
+<div id="example2">
+    <h2>2. Atualizar Estilos</h2>
+    <div id="styleExample" style="width: 200px; height: 200px; background-color: lightblue; margin-bottom: 10px;"></div>
+    <button id="btnUpdateStyle">Atualizar Estilo</button>
+</div>
+
+<hr>
+
+<div id="example3">
+    <h2>3. Manipulação de Eventos</h2>
+    <button id="btnEvent">Clique Aqui</button>
+    <p id="eventResult"></p>
+</div>
+
+<hr>
+
+<div id="example4">
+    <h2>4. Animação Simples</h2>
+    <div id="animateExample" style="width: 100px; height: 100px; background-color: lightgreen;"></div>
+    <button id="btnAnimate">Animar</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Exemplo 1: Adicionar Elementos
+        $('#btnAddElement').click(function () {
+            $('#elementList').append('<li>Novo Elemento</li>');
+        });
+
+        // Exemplo 2: Atualizar Estilos
+        $('#btnUpdateStyle').click(function () {
+            $('#styleExample').css({
+                'background-color': 'lightcoral',
+                'width': '300px',
+                'height': '300px',
+                'border': '2px solid black'
+            });
+        });
+
+        // Exemplo 3: Manipulação de Eventos
+        $('#btnEvent').click(function () {
+            $('#eventResult').text('Botão clicado!');
+        });
+
+        // Exemplo 4: Animação Simples
+        $('#btnAnimate').click(function () {
+            $('#animateExample').animate({
+                width: '200px',
+                height: '200px',
+                opacity: 0.5
+            }, 1000);
+        });
+    });
+</script>

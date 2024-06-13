@@ -20,6 +20,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  '/dom': { view: 'pages/dom-manipulation-demo' },
 
   // CRUD - produtos
 
