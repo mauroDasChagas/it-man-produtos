@@ -21,6 +21,7 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
   '/dom': { view: 'pages/dom-manipulation-demo' },
+  '/async': { view: 'pages/async-calls-demo' },
 
   // CRUD - produtos
 

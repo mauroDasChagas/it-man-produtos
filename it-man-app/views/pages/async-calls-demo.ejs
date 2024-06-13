@@ -1,0 +1,35 @@
+<!-- views/pages/async-calls-demo.ejs -->
+
+<h1>Exemplo de Chamadas Assíncronas com AJAX e jQuery</h1>
+
+<button id="btnLoadProducts">Carregar Produtos</button>
+
+<ul id="productList">
+  <!-- produtos carregados -->
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#btnLoadProducts').click(function() {
+      // chamada AJAX para obter os produtos
+      $.ajax({
+        url: '/product',
+        method: 'GET',
+        success: function(products) {
+          // limpa a lista de produtos
+          $('#productList').empty();
+
+          // itera sobre os produtos e os adiciona na lista
+          products.forEach(function(product) {
+            $('#productList').append('<li>' + product.name + ': R$ ' + product.price + '</li>');
+          });
+        },
+        error: function(xhr, status, error) {
+          console.error('Erro ao carregar produtos:', error);
+          $('#productList').html('<li>Erro ao carregar produtos.</li>');
+        }
+      });
+    });
+  });
+</script>
